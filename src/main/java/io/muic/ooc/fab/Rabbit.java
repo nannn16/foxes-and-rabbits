@@ -41,7 +41,8 @@ public class Rabbit extends Animal {
      *
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void run(List<Rabbit> newRabbits) {
+    @Override
+    public void act(List<Animal> newRabbits) {
         incrementAge();
         if (isAlive()) {
             giveBirth(newRabbits);
