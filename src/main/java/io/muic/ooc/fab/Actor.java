@@ -8,12 +8,10 @@ public abstract class Actor {
     // Whether the actor is alive or not.
     private boolean alive;
 
-    // The fox's position.
+    // The actor's position.
     protected Location location;
     // The field occupied.
     protected Field field;
-
-    private static final Random RANDOM = new Random();
 
     public void initialize(boolean randomAge, Field field, Location location) {
         this.field = field;
@@ -24,9 +22,9 @@ public abstract class Actor {
     public abstract void act(List<Actor> newActor);
 
     /**
-     * Check whether the animal is alive or not.
+     * Check whether the actor is alive or not.
      *
-     * @return true if the animal is still alive.
+     * @return true if the actor is still alive.
      */
     public boolean isAlive() {
         return alive;
@@ -39,9 +37,9 @@ public abstract class Actor {
     protected abstract Location moveToLocation();
 
     /**
-     * Place the rabbit at the new location in the given field.
+     * Place the actor at the new location in the given field.
      *
-     * @param newLocation The rabbit's new location.
+     * @param newLocation The actor's new location.
      */
     protected void setLocation(Location newLocation) {
         if (location != null) {

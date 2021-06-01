@@ -3,17 +3,16 @@ package io.muic.ooc.fab;
 
 import io.muic.ooc.fab.view.SimulatorView;
 
-import java.util.Random;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.Color;
+import java.util.List;
+import java.util.Random;
 
 public class Simulator {
 
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 120;
+    private static final int DEFAULT_WIDTH = 150;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
 
@@ -55,10 +54,10 @@ public class Simulator {
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Rabbit.class, Color.ORANGE);
-        view.setColor(Fox.class, Color.BLUE);
-        view.setColor(Tiger.class, Color.RED);
-        view.setColor(Hunter.class, Color.BLACK);
+        ActorType[] actorTypes = ActorType.values();
+        for (int i = 0; i < actorTypes.length; i++) {
+            view.setColor(actorTypes[i].getActorClass(), actorTypes[i].getColor());
+        }
 
         // Setup a valid starting point.
         reset();

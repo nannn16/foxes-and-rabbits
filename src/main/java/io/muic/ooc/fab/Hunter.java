@@ -27,7 +27,7 @@ public class Hunter extends Actor {
     }
 
     /**
-     * Look for rabbits adjacent to the current location. Only the first live
+     * Look for rabbits, foxes and tigers adjacent to the current location. Only the first live
      * rabbit is eaten.
      *
      * @return Where food was found, or null if it wasn't.

@@ -37,9 +37,9 @@ public abstract class Animal extends Actor {
     }
 
     /**
-     * Return the fox's location.
+     * Return the animal's location.
      *
-     * @return The fox's location.
+     * @return The animal's location.
      */
     public Location getLocation() {
         return location;
@@ -48,7 +48,7 @@ public abstract class Animal extends Actor {
     public abstract int getMaxAge();
 
     /**
-     * Increase the age. This could result in the rabbit's death.
+     * Increase the age. This could result in the animal's death.
      */
     protected void incrementAge() {
         age++;
@@ -59,7 +59,7 @@ public abstract class Animal extends Actor {
 
 
     /**
-     * Indicate that the fox is no longer alive. It is removed from the field.
+     * Indicate that the animal is no longer alive. It is removed from the field.
      */
     protected void setDead() {
         setAlive(false);
@@ -87,7 +87,7 @@ public abstract class Animal extends Actor {
     protected abstract int getMaxLitterSize();
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
+     * A animal can breed if it has reached the breeding age.
      *
      * @return true if the rabbit can breed, false otherwise.
      */

@@ -18,7 +18,7 @@ public class FieldPopulator {
     }};
 
     /**
-     * Randomly populate the field with animals.
+     * Randomly populate the field with actors.
      */
     public void populate(Field field, List<Actor> actors) {
 
