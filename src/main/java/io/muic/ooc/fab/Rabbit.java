@@ -1,7 +1,6 @@
 package io.muic.ooc.fab;
 
 import java.util.List;
-import java.util.Random;
 
 public class Rabbit extends Animal {
     // Characteristics shared by all rabbits (class variables).
@@ -14,8 +13,9 @@ public class Rabbit extends Animal {
     private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
-    // A shared random number generator to control breeding.
-    private static final Random RANDOM = new Random();
+    // The food value of a single rabbit. In effect, this is the
+    // number of steps a fox can go before it has to eat again.
+    private static final int RABBIT_FOOD_VALUE = 9;
 
     /**
      * Create a new rabbit. A rabbit may be created with age zero (a new born)
@@ -25,14 +25,13 @@ public class Rabbit extends Animal {
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location) {
-        age = 0;
-        setAlive(true);
-        this.field = field;
-        setLocation(location);
-        if (randomAge) {
-            age = RANDOM.nextInt(MAX_AGE);
-        }
+    public void initialize(boolean randomAge, Field field, Location location) {
+        super.initialize(randomAge, field, location);
+    }
+
+    @Override
+    protected Location moveToLocation() {
+        return field.freeAdjacentLocation(location);
     }
 
     /**
@@ -42,19 +41,8 @@ public class Rabbit extends Animal {
      * @param newRabbits A list to return newly born rabbits.
      */
     @Override
-    public void act(List<Animal> newRabbits) {
-        incrementAge();
-        if (isAlive()) {
-            giveBirth(newRabbits);
-            // Try to move into a free location.
-            Location newLocation = field.freeAdjacentLocation(location);
-            if (newLocation != null) {
-                setLocation(newLocation);
-            } else {
-                // Overcrowding.
-                setDead();
-            }
-        }
+    public void act(List<Actor> newRabbits) {
+        super.act(newRabbits);
     }
 
     @Override
@@ -77,8 +65,10 @@ public class Rabbit extends Animal {
         return BREEDING_AGE;
     }
 
+    public int getFoodLevel() { return RABBIT_FOOD_VALUE; }
+
     @Override
-    protected Animal createYoung(boolean randomAge, Field field, Location location) {
-        return new Rabbit(randomAge, field, location);
+    protected Actor createYoung(boolean randomAge, Field field, Location location) {
+        return ActorFactory.createActor(ActorType.RABBIT, field, location);
     }
 }
