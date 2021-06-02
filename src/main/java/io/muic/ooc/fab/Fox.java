@@ -113,9 +113,4 @@ public class Fox extends Animal {
     }
 
     public int getFoodLevel() { return FOX_FOOD_VALUE; }
-
-    @Override
-    protected Actor createYoung(boolean randomAge, Field field, Location location) {
-        return ActorFactory.createActor(ActorType.FOX, field, location);
-    }
 }

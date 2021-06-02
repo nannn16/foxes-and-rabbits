@@ -17,32 +17,9 @@ public class Rabbit extends Animal {
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
 
-    /**
-     * Create a new rabbit. A rabbit may be created with age zero (a new born)
-     * or with a random age.
-     *
-     * @param randomAge If true, the rabbit will have a random age.
-     * @param field The field currently occupied.
-     * @param location The location within the field.
-     */
-    public void initialize(boolean randomAge, Field field, Location location) {
-        super.initialize(randomAge, field, location);
-    }
-
     @Override
     protected Location moveToLocation() {
         return field.freeAdjacentLocation(location);
-    }
-
-    /**
-     * This is what the rabbit does most of the time - it runs around. Sometimes
-     * it will breed or die of old age.
-     *
-     * @param newRabbits A list to return newly born rabbits.
-     */
-    @Override
-    public void act(List<Actor> newRabbits) {
-        super.act(newRabbits);
     }
 
     @Override
@@ -66,9 +43,4 @@ public class Rabbit extends Animal {
     }
 
     public int getFoodLevel() { return RABBIT_FOOD_VALUE; }
-
-    @Override
-    protected Actor createYoung(boolean randomAge, Field field, Location location) {
-        return ActorFactory.createActor(ActorType.RABBIT, field, location);
-    }
 }

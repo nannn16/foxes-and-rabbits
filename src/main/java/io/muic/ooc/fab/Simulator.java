@@ -1,6 +1,8 @@
 package io.muic.ooc.fab;
 
 
+import io.muic.ooc.fab.observer.Observable;
+import io.muic.ooc.fab.observer.SimulateViewObserver;
 import io.muic.ooc.fab.view.SimulatorView;
 
 import java.util.ArrayList;
@@ -8,11 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Simulator {
+public class Simulator extends Observable {
 
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 150;
+    private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
 
@@ -58,6 +60,8 @@ public class Simulator {
         for (int i = 0; i < actorTypes.length; i++) {
             view.setColor(actorTypes[i].getActorClass(), actorTypes[i].getColor());
         }
+        SimulateViewObserver simulateViewObserver = new SimulateViewObserver(view);
+        addObserver(simulateViewObserver);
 
         // Setup a valid starting point.
         reset();
@@ -104,7 +108,8 @@ public class Simulator {
 
         // Add the newly born foxes and rabbits to the main lists.
         actors.addAll(newActors);
-        view.showStatus(step, field);
+        notifyAllObserver(step, field);
+        // view.showStatus(step, field);
     }
 
     /**

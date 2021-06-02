@@ -19,8 +19,6 @@ public abstract class Actor {
         setLocation(location);
     }
 
-    public abstract void act(List<Actor> newActor);
-
     /**
      * Check whether the actor is alive or not.
      *
@@ -33,6 +31,9 @@ public abstract class Actor {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+
+    public abstract void act(List<Actor> newActors);
 
     protected abstract Location moveToLocation();
 

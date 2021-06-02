@@ -107,9 +107,4 @@ public class Tiger extends Animal {
     protected int getBreedingAge() {
         return BREEDING_AGE;
     }
-
-    @Override
-    protected Actor createYoung(boolean randomAge, Field field, Location location) {
-        return ActorFactory.createActor(ActorType.TIGER, field, location);
-    }
 }

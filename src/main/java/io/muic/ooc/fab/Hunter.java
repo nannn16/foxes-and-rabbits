@@ -5,10 +5,9 @@ import java.util.List;
 
 public class Hunter extends Actor {
 
-    public void initialize(boolean randomAge, Field field, Location location) {
-        super.initialize(randomAge, field, location);
-    }
-
+    /**
+     * This is what the hunter does most of the time - it runs around and hunts an animal.
+     */
     public void act(List<Actor> newActors) {
         Location newLocation = moveToLocation();
         if (newLocation != null) {
@@ -20,7 +19,7 @@ public class Hunter extends Actor {
     protected Location moveToLocation() {
         Location newLocation = findPrey();
         if (newLocation == null) {
-            // No food found - try to move to a free location.
+            // No animal found - try to move to a free location.
             newLocation = field.freeAdjacentLocation(location);
         }
         return newLocation;
@@ -37,25 +36,11 @@ public class Hunter extends Actor {
         Iterator<Location> it = adjacent.iterator();
         while (it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if (rabbit.isAlive()) {
-                    rabbit.setDead();
-                    return where;
-                }
-            }
-            else if (animal instanceof Fox) {
-                Fox fox = (Fox) animal;
-                if (fox.isAlive()) {
-                    fox.setDead();
-                    return where;
-                }
-            }
-            else if (animal instanceof Tiger) {
-                Tiger tiger = (Tiger) animal;
-                if (tiger.isAlive()) {
-                    tiger.setDead();
+            Object creature = field.getObjectAt(where);
+            if (creature instanceof Animal) {
+                Animal animal = (Animal) creature;
+                if(animal.isAlive()) {
+                    animal.setDead();
                     return where;
                 }
             }

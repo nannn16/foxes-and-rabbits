@@ -21,6 +21,12 @@ public abstract class Animal extends Actor {
         }
     }
 
+    /**
+     * This is what the animal does most of the time - it runs around or may be hunts for preys. Sometimes
+     * it will breed or die of old age.
+     *
+     * @param newActors A list to return newly born animals.
+     */
     public void act(List<Actor> newActors) {
         incrementAge();
         if (isAlive()) {
@@ -97,7 +103,9 @@ public abstract class Animal extends Actor {
 
     protected abstract int getBreedingAge();
 
-    protected abstract Actor createYoung(boolean randomAge, Field field, Location location);
+    private Actor createYoung(boolean randomAge, Field field, Location location) {
+        return ActorFactory.createActor(getClass(), field, location);
+    }
 
     /**
      * Check whether or not this animal is to give birth at this step. New
