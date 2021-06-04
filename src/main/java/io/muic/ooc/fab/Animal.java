@@ -1,5 +1,6 @@
 package io.muic.ooc.fab;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ public abstract class Animal extends Actor {
     // Individual characteristics (instance fields).
     // The animal's age.
     protected int age;
+    protected int foodLevel;
 
     private static final Random RANDOM = new Random();
 
@@ -40,15 +42,6 @@ public abstract class Animal extends Actor {
                 setDead();
             }
         }
-    }
-
-    /**
-     * Return the animal's location.
-     *
-     * @return The animal's location.
-     */
-    public Location getLocation() {
-        return location;
     }
 
     public abstract int getMaxAge();
@@ -90,7 +83,10 @@ public abstract class Animal extends Actor {
     }
 
     protected abstract double getBreedingProbability();
+
     protected abstract int getMaxLitterSize();
+
+    protected abstract int getFoodLevel();
 
     /**
      * A animal can breed if it has reached the breeding age.

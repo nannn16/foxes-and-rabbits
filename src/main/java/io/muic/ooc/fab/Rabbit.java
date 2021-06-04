@@ -42,5 +42,6 @@ public class Rabbit extends Animal {
         return BREEDING_AGE;
     }
 
-    public int getFoodLevel() { return RABBIT_FOOD_VALUE; }
+    @Override
+    protected int getFoodLevel() { return RABBIT_FOOD_VALUE; }
 }

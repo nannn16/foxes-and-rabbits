@@ -3,7 +3,7 @@ package io.muic.ooc.fab.observer;
 import io.muic.ooc.fab.Field;
 import io.muic.ooc.fab.view.SimulatorView;
 
-public class SimulateViewObserver extends Observer {
+public class SimulateViewObserver implements Observer {
 
     private SimulatorView simulatorView;
     

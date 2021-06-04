@@ -14,11 +14,11 @@ public class Tiger extends Animal {
     private static final double BREEDING_PROBABILITY = 0.03;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 1;
+    // The food value of a single fox. In effect, this is the
+    // number of steps a fox can go before it has to eat again.
+    private static final int TIGER_FOOD_VALUE = 20;
     // Random generator
     private static final Random RANDOM = new Random();
-
-    // The fox's food level, which is increased by eating foxes and rabbits.
-    private int foodLevel;
 
     public void initialize(boolean randomAge, Field field, Location location) {
         super.initialize(randomAge, field, location);
@@ -56,31 +56,17 @@ public class Tiger extends Animal {
         }
     }
 
-    /**
-     * Look for rabbits and foxes adjacent to the current location. Only the first live
-     * rabbit is eaten.
-     *
-     * @return Where food was found, or null if it wasn't.
-     */
     private Location findPrey() {
         List<Location> adjacent = field.adjacentLocations(location);
         Iterator<Location> it = adjacent.iterator();
         while (it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if (rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = rabbit.getFoodLevel();
-                    return where;
-                }
-            }
-            else if (animal instanceof Fox) {
-                Fox fox = (Fox) animal;
-                if (fox.isAlive()) {
-                    fox.setDead();
-                    foodLevel = fox.getFoodLevel();
+            Object creature = field.getObjectAt(where);
+            if (creature instanceof Fox || creature instanceof Rabbit) {
+                Animal animal = (Animal) creature;
+                if (animal.isAlive()) {
+                    animal.setDead();
+                    foodLevel = animal.getFoodLevel();
                     return where;
                 }
             }
@@ -107,4 +93,7 @@ public class Tiger extends Animal {
     protected int getBreedingAge() {
         return BREEDING_AGE;
     }
+
+    @Override
+    protected int getFoodLevel() { return TIGER_FOOD_VALUE; }
 }

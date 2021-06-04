@@ -21,9 +21,6 @@ public class Fox extends Animal {
     // Random generator
     private static final Random RANDOM = new Random();
 
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
-
     /**
      * Create a fox. A fox can be created as a new born (age zero and not
      * hungry) or with a random age and food level.
@@ -46,10 +43,28 @@ public class Fox extends Animal {
         }
         return newLocation;
     }
+
+    private Location findPrey() {
+        List<Location> adjacent = field.adjacentLocations(location);
+        Iterator<Location> it = adjacent.iterator();
+        while (it.hasNext()) {
+            Location where = it.next();
+            Object creature = field.getObjectAt(where);
+            if (creature instanceof Rabbit) {
+                Animal animal = (Animal) creature;
+                if (animal.isAlive()) {
+                    animal.setDead();
+                    foodLevel = animal.getFoodLevel();
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * This is what the fox does most of the time: it hunts for rabbits. In the
      * process, it might breed, die of hunger, or die of old age.
-     *  @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
     @Override
@@ -66,30 +81,6 @@ public class Fox extends Animal {
         if (foodLevel <= 0) {
             setDead();
         }
-    }
-
-    /**
-     * Look for rabbits adjacent to the current location. Only the first live
-     * rabbit is eaten.
-     *
-     * @return Where food was found, or null if it wasn't.
-     */
-    private Location findPrey() {
-        List<Location> adjacent = field.adjacentLocations(location);
-        Iterator<Location> it = adjacent.iterator();
-        while (it.hasNext()) {
-            Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if (rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = rabbit.getFoodLevel();
-                    return where;
-                }
-            }
-        }
-        return null;
     }
 
     @Override
@@ -112,5 +103,6 @@ public class Fox extends Animal {
         return BREEDING_AGE;
     }
 
-    public int getFoodLevel() { return FOX_FOOD_VALUE; }
+    @Override
+    protected int getFoodLevel() { return FOX_FOOD_VALUE; }
 }

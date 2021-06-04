@@ -49,4 +49,13 @@ public abstract class Actor {
         location = newLocation;
         field.place(this, newLocation);
     }
+
+    /**
+     * Return the actor's location.
+     *
+     * @return The actor's location.
+     */
+    public Location getLocation() {
+        return location;
+    }
 }
